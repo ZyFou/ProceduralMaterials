@@ -98,28 +98,97 @@ body {
 /* ---------------------------------------------------------------- toolbar */
 
 .toolbar {
-  flex: 0 0 46px;
+  flex: 0 0 54px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 14px;
-  background: var(--bg1);
-  border-bottom: 1px solid var(--border);
+  gap: 10px;
+  padding: 0 16px;
+  background: linear-gradient(180deg, #171a21 0%, var(--bg1) 100%);
+  border-bottom: 1px solid #2a2f3a;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+  z-index: 30;
 }
 
 .toolbar .brand {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-weight: 700;
   font-size: 14px;
-  margin-right: 12px;
+  margin-right: 8px;
   white-space: nowrap;
 }
 
+.toolbar .brand span:last-child {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.toolbar .brand em {
+  color: var(--text-muted);
+  font-style: normal;
+  font-weight: 600;
+}
+
 .toolbar .brand .logo {
-  color: var(--accent);
-  font-size: 16px;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: #fff;
+  font-size: 14px;
+  background: linear-gradient(135deg, var(--accent), #8f6dff);
+  border-radius: 9px;
+  box-shadow: 0 8px 22px rgba(79, 140, 255, 0.3);
+}
+
+.top-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+}
+
+.top-tabs button {
+  background: transparent;
+  border-color: transparent;
+  border-radius: 7px;
+  padding: 6px 10px;
+}
+
+.top-tabs button:hover,
+.top-tabs button.active {
+  background: var(--bg3);
+  border-color: #303644;
+}
+
+.menu-root {
+  position: relative;
+}
+
+.toolbar-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 188px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: #171a20;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.toolbar-menu button {
+  justify-content: flex-start;
+  text-align: left;
+  width: 100%;
 }
 
 .toolbar .spacer {

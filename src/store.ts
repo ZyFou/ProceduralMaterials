@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Edge, GraphData, NodeInstance, ParamValue } from './types';
+import type { Edge, GraphData, GraphViewport, LayoutData, NodeInstance, ParamValue } from './types';
 import { NODE_DEFS } from './engine/nodeDefs';
 
 let idCounter = 0;
@@ -25,6 +25,7 @@ interface AppState {
   selectedEdge: string | null;
   /** bumped whenever the graph output may have changed; the engine listens to this */
   graphVersion: number;
+  graphView: GraphViewport;
 
   resolution: number;
   previewShape: PreviewShape;
@@ -43,6 +44,9 @@ interface AppState {
   selectEdge: (id: string | null) => void;
   loadGraph: (graph: GraphData) => void;
   serializeGraph: () => GraphData;
+  setGraphView: (view: GraphViewport | ((view: GraphViewport) => GraphViewport)) => void;
+  serializeLayout: () => LayoutData;
+  loadLayout: (layout: LayoutData) => void;
 
   setResolution: (r: number) => void;
   setPreviewShape: (s: PreviewShape) => void;
@@ -73,6 +77,7 @@ export const useStore = create<AppState>((set, get) => ({
   selectedNode: null,
   selectedEdge: null,
   graphVersion: 0,
+  graphView: { tx: 80, ty: 60, k: 0.8 },
 
   resolution: 512,
   previewShape: 'sphere',
@@ -167,6 +172,35 @@ export const useStore = create<AppState>((set, get) => ({
       edges: s.edges.map((e) => ({ ...e })),
     };
   },
+
+  setGraphView: (view) =>
+    set((s) => ({ graphView: typeof view === 'function' ? view(s.graphView) : view })),
+
+  serializeLayout: () => {
+    const s = get();
+    return {
+      version: 1,
+      graphView: { ...s.graphView },
+      resolution: s.resolution,
+      previewShape: s.previewShape,
+      autoRotate: s.autoRotate,
+      displacement: s.displacement,
+      tiling: s.tiling,
+      envIntensity: s.envIntensity,
+    };
+  },
+
+  loadLayout: (layout) =>
+    set((s) => ({
+      graphView: layout.graphView ?? s.graphView,
+      resolution: layout.resolution ?? s.resolution,
+      previewShape: (layout.previewShape as PreviewShape) ?? s.previewShape,
+      autoRotate: layout.autoRotate ?? s.autoRotate,
+      displacement: layout.displacement ?? s.displacement,
+      tiling: layout.tiling ?? s.tiling,
+      envIntensity: layout.envIntensity ?? s.envIntensity,
+      graphVersion: layout.resolution && layout.resolution !== s.resolution ? s.graphVersion + 1 : s.graphVersion,
+    })),
 
   setResolution: (r) => set((s) => ({ resolution: r, graphVersion: s.graphVersion + 1 })),
   setPreviewShape: (previewShape) => set({ previewShape }),
