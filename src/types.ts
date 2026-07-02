@@ -24,6 +24,23 @@ export interface GraphData {
   edges: Edge[];
 }
 
+export interface GraphViewport {
+  tx: number;
+  ty: number;
+  k: number;
+}
+
+export interface LayoutData {
+  version: 1;
+  graphView: GraphViewport;
+  resolution: number;
+  previewShape: string;
+  autoRotate: boolean;
+  displacement: number;
+  tiling: number;
+  envIntensity: number;
+}
+
 export type ParamKind = 'float' | 'int' | 'select' | 'color';
 
 export interface ParamDef {

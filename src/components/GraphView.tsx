@@ -3,7 +3,7 @@ import { useStore } from '../store';
 import { NODE_DEFS, NODE_CATEGORIES, nodesInCategory } from '../engine/nodeDefs';
 import { engine } from '../engine/Engine';
 import { CHANNEL_LABELS } from '../types';
-import type { NodeInstance, OutputChannel } from '../types';
+import type { GraphViewport, NodeInstance, OutputChannel } from '../types';
 
 export const NODE_WIDTH = 180;
 const HEADER_H = 28;
@@ -21,12 +21,6 @@ function inPortPos(n: NodeInstance, port: number) {
 function edgePath(x1: number, y1: number, x2: number, y2: number): string {
   const c = Math.max(40, Math.abs(x2 - x1) * 0.5);
   return `M ${x1} ${y1} C ${x1 + c} ${y1}, ${x2 - c} ${y2}, ${x2} ${y2}`;
-}
-
-interface View {
-  tx: number;
-  ty: number;
-  k: number;
 }
 
 interface Pending {
@@ -110,15 +104,15 @@ export default function GraphView() {
   const edges = useStore((s) => s.edges);
   const selectedNode = useStore((s) => s.selectedNode);
   const selectedEdge = useStore((s) => s.selectedEdge);
-  const { moveNode, removeNode, removeEdge, connect, selectNode, selectEdge, addNode } =
+  const view = useStore((s) => s.graphView);
+  const { moveNode, removeNode, removeEdge, connect, selectNode, selectEdge, addNode, setGraphView } =
     useStore.getState();
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [view, setView] = useState<View>({ tx: 80, ty: 60, k: 0.8 });
   const [pending, setPending] = useState<Pending | null>(null);
   const [menu, setMenu] = useState<MenuState | null>(null);
 
-  const viewRef = useRef(view);
+  const viewRef = useRef<GraphViewport>(view);
   viewRef.current = view;
 
   const toWorld = (clientX: number, clientY: number) => {
@@ -138,7 +132,7 @@ export default function GraphView() {
       const rect = el.getBoundingClientRect();
       const mx = e.clientX - rect.left;
       const my = e.clientY - rect.top;
-      setView((v) => {
+      setGraphView((v) => {
         const k = Math.min(2.5, Math.max(0.15, v.k * Math.exp(-e.deltaY * 0.0012)));
         return {
           k,
@@ -173,7 +167,7 @@ export default function GraphView() {
     if (e.target !== e.currentTarget) return;
     if (e.button !== 0 && e.button !== 1) return;
     setMenu(null);
-    panState.current = { x: e.clientX, y: e.clientY, tx: view.tx, ty: view.ty, moved: false };
+    panState.current = { x: e.clientX, y: e.clientY, tx: viewRef.current.tx, ty: viewRef.current.ty, moved: false };
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
   };
 
@@ -181,8 +175,9 @@ export default function GraphView() {
     if (!panState.current) return;
     const dx = e.clientX - panState.current.x;
     const dy = e.clientY - panState.current.y;
-    if (Math.abs(dx) + Math.abs(dy) > 3) panState.current.moved = true;
-    setView((v) => ({ ...v, tx: panState.current!.tx + dx, ty: panState.current!.ty + dy }));
+    const pan = panState.current;
+    if (Math.abs(dx) + Math.abs(dy) > 3) pan.moved = true;
+    setGraphView((v) => ({ ...v, tx: pan.tx + dx, ty: pan.ty + dy }));
   };
 
   const onBackgroundPointerUp = (e: React.PointerEvent) => {
