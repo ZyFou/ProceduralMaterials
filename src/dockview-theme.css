@@ -1,0 +1,74 @@
+/* dockview theme mapped onto the app's own dark/blue palette (see styles.css :root) */
+.dockview-theme-procedural {
+  --dv-paneview-active-outline-color: var(--accent);
+  --dv-tabs-and-actions-container-font-size: 12px;
+  --dv-tabs-and-actions-container-height: 34px;
+  --dv-tab-font-size: 12px;
+
+  --dv-drag-over-background-color: var(--accent-soft);
+  --dv-drag-over-border-color: var(--accent);
+  --dv-drag-over-border: 2px solid var(--accent);
+
+  --dv-tabs-container-scrollbar-color: var(--text-dim);
+  --dv-scrollbar-background-color: var(--bg2);
+  --dv-icon-hover-background-color: var(--accent-soft);
+
+  --dv-border-radius: var(--radius-sm);
+  --dv-tab-border-radius: 6px 6px 0 0;
+  --dv-sash-border-radius: 0px;
+  --dv-dropdown-border-radius: var(--radius-sm);
+  --dv-tab-margin: 0;
+  --dv-spacing-padding: 0px;
+  --dv-tab-close-icon-size: 12px;
+
+  --dv-sash-color: var(--border);
+  --dv-active-sash-color: var(--accent);
+  --dv-active-sash-transition-duration: 0.1s;
+  --dv-active-sash-transition-delay: 0.15s;
+
+  --dv-floating-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+  --dv-floating-border: 1px solid var(--border);
+  --dv-floating-group-border: 1px solid var(--border);
+  --dv-floating-group-dragging-opacity: 0.6;
+  --dv-floating-titlebar-height: 30px;
+  --dv-floating-titlebar-background-color: var(--bg2);
+  --dv-floating-titlebar-border-bottom: 1px solid var(--border);
+
+  --dv-overlay-z-index: 999;
+
+  --dv-tab-group-color-grey: var(--text-dim);
+  --dv-tab-group-color-blue: var(--accent);
+  --dv-tab-group-color-red: #ef4444;
+  --dv-tab-group-color-yellow: #f59e0b;
+  --dv-tab-group-color-green: var(--green);
+  --dv-tab-group-color-pink: #ec4899;
+  --dv-tab-group-color-purple: #a855f7;
+  --dv-tab-group-color-cyan: #06b6d4;
+  --dv-tab-group-color-orange: #f97316;
+  --dv-tab-group-chip-padding: 4px 8px;
+  --dv-tab-group-chip-border-radius: 6px;
+  --dv-tab-group-chip-font-size: 11px;
+  --dv-tab-group-line-height: 2px;
+  --dv-tab-group-line-opacity: 1;
+  --dv-tab-group-color: var(--accent);
+
+  --dv-group-view-background-color: var(--bg1);
+  --dv-tabs-and-actions-container-background-color: var(--bg1);
+
+  --dv-activegroup-visiblepanel-tab-background-color: var(--bg1);
+  --dv-activegroup-hiddenpanel-tab-background-color: var(--bg2);
+  --dv-inactivegroup-visiblepanel-tab-background-color: var(--bg2);
+  --dv-inactivegroup-hiddenpanel-tab-background-color: var(--bg2);
+
+  --dv-activegroup-visiblepanel-tab-color: var(--text);
+  --dv-activegroup-hiddenpanel-tab-color: var(--text-muted);
+  --dv-inactivegroup-visiblepanel-tab-color: var(--text-muted);
+  --dv-inactivegroup-hiddenpanel-tab-color: var(--text-dim);
+
+  --dv-tab-divider-color: var(--border-soft);
+  --dv-separator-border: var(--border);
+  --dv-paneview-header-border-color: var(--border);
+
+  --dv-context-menu-background-color: var(--bg2);
+  --dv-context-menu-color: var(--text);
+}

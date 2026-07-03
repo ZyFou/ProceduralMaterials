@@ -36,8 +36,7 @@ export default function Outputs() {
   }, []);
 
   return (
-    <div className="outputs">
-      <div className="panel-header">Outputs</div>
+    <div className="outputs" style={{ flex: 1 }}>
       <div className="outputs-strip">
         {OUTPUT_CHANNELS.map((c) => (
           <OutputCell key={c} channel={c} active={activeChannels.has(c)} />

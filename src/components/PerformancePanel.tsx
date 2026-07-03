@@ -7,8 +7,7 @@ export default function PerformancePanel() {
   useEffect(() => engine.addStatsListener(setStats), []);
 
   return (
-    <div className="panel perf">
-      <div className="panel-header">Performance</div>
+    <div className="panel perf" style={{ flex: 1 }}>
       <div className="perf-grid">
         <span className="k">FPS</span>
         <span className={`v ${stats && stats.fps >= 50 ? 'good' : ''}`}>{stats?.fps ?? '—'}</span>

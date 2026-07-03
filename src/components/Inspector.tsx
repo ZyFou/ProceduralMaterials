@@ -1,6 +1,7 @@
 import { useStore } from '../store';
 import { NODE_DEFS } from '../engine/nodeDefs';
 import type { ParamDef } from '../types';
+import Slider from './Slider';
 
 function toHex(c: [number, number, number]): string {
   return (
@@ -67,15 +68,14 @@ function ParamControl({
   return (
     <div className="param-row">
       <span className="param-label">{def.label}</span>
-      <input
-        type="range"
-        min={def.min}
-        max={def.max}
-        step={def.step}
-        value={num}
-        onChange={(e) => setParam(nodeId, def.key, Number(e.target.value))}
-      />
       <span className="param-value">{display}</span>
+      <Slider
+        min={def.min ?? 0}
+        max={def.max ?? 1}
+        step={def.step ?? 0.01}
+        value={num}
+        onChange={(v) => setParam(nodeId, def.key, v)}
+      />
     </div>
   );
 }
@@ -87,7 +87,6 @@ export default function Inspector() {
 
   return (
     <div className="panel" style={{ flex: 1 }}>
-      <div className="panel-header">Inspector</div>
       <div className="panel-body">
         {!node || !selectedId ? (
           <div className="inspector-empty">
