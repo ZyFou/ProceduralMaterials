@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { DockviewReact, type DockviewReadyEvent, type SerializedDockview } from 'dockview-react';
 import { PANEL_COMPONENTS } from './dockPanels';
-import { buildDefaultLayout, setDockviewApi } from '../workspaceApi';
-
-export const LAYOUT_STORAGE_KEY = 'procedural-materials.dockview-layout.v1';
+import { buildDefaultLayout, LAYOUT_STORAGE_KEY, setDockviewApi } from '../workspaceApi';
 
 export default function Workspace() {
   const saveTimer = useRef<number | undefined>(undefined);

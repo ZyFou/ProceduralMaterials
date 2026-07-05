@@ -15,7 +15,7 @@ import PerformancePanel from './PerformancePanel';
 function panelHost(Comp: ComponentType): FunctionComponent<IDockviewPanelProps> {
   return function DockviewPanel(_props: IDockviewPanelProps) {
     return (
-      <div style={{ height: '100%', display: 'flex', minHeight: 0 }}>
+      <div style={{ height: '100%', width: '100%', display: 'flex', minHeight: 0, minWidth: 0 }}>
         <Comp />
       </div>
     );

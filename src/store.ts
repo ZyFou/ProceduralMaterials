@@ -32,6 +32,8 @@ interface AppState {
   displacement: number;
   tiling: number;
   envIntensity: number;
+  backgroundColor: [number, number, number];
+  lightColor: [number, number, number];
 
   addNode: (type: string, x: number, y: number) => string;
   moveNode: (id: string, x: number, y: number) => void;
@@ -50,6 +52,8 @@ interface AppState {
   setDisplacement: (v: number) => void;
   setTiling: (v: number) => void;
   setEnvIntensity: (v: number) => void;
+  setBackgroundColor: (c: [number, number, number]) => void;
+  setLightColor: (c: [number, number, number]) => void;
 }
 
 /** true if `target` is reachable from `start` following edges downstream */
@@ -80,6 +84,8 @@ export const useStore = create<AppState>((set, get) => ({
   displacement: 0.06,
   tiling: 1,
   envIntensity: 1,
+  backgroundColor: [16 / 255, 18 / 255, 22 / 255],
+  lightColor: [1, 1, 1],
 
   addNode: (type, x, y) => {
     const id = nextId(type);
@@ -174,4 +180,6 @@ export const useStore = create<AppState>((set, get) => ({
   setDisplacement: (displacement) => set({ displacement }),
   setTiling: (tiling) => set({ tiling }),
   setEnvIntensity: (envIntensity) => set({ envIntensity }),
+  setBackgroundColor: (backgroundColor) => set({ backgroundColor }),
+  setLightColor: (lightColor) => set({ lightColor }),
 }));

@@ -65,6 +65,7 @@ class Engine {
   private camera = new THREE.PerspectiveCamera(40, 1, 0.01, 100);
   private controls: OrbitControls | null = null;
   private mesh: THREE.Mesh;
+  private keyLight: THREE.DirectionalLight;
   private previewMaterial: THREE.MeshStandardMaterial;
   private geometries: Partial<Record<PreviewShape, THREE.BufferGeometry>> = {};
   private container: HTMLElement | null = null;
@@ -109,9 +110,9 @@ class Engine {
     const pmrem = new THREE.PMREMGenerator(this.renderer);
     this.scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
-    const key = new THREE.DirectionalLight(0xffffff, 1.6);
-    key.position.set(2.5, 3, 2);
-    this.scene.add(key);
+    this.keyLight = new THREE.DirectionalLight(0xffffff, 1.6);
+    this.keyLight.position.set(2.5, 3, 2);
+    this.scene.add(this.keyLight);
     const rim = new THREE.DirectionalLight(0x8899ff, 0.5);
     rim.position.set(-3, 1, -2.5);
     this.scene.add(rim);
@@ -261,6 +262,12 @@ class Engine {
     if (this.controls) this.controls.autoRotate = s.autoRotate;
     if (this.controls) this.controls.autoRotateSpeed = 1.2;
     this.scene.environmentIntensity = s.envIntensity;
+    (this.scene.background as THREE.Color).setRGB(
+      s.backgroundColor[0],
+      s.backgroundColor[1],
+      s.backgroundColor[2]
+    );
+    this.keyLight.color.setRGB(s.lightColor[0], s.lightColor[1], s.lightColor[2]);
     const hasHeight = this.channelSources.has('height');
     this.previewMaterial.displacementScale = hasHeight ? s.displacement : 0;
     for (const tex of this.channelTextures()) {

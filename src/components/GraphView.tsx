@@ -178,11 +178,13 @@ export default function GraphView() {
   };
 
   const onBackgroundPointerMove = (e: React.PointerEvent) => {
-    if (!panState.current) return;
-    const dx = e.clientX - panState.current.x;
-    const dy = e.clientY - panState.current.y;
-    if (Math.abs(dx) + Math.abs(dy) > 3) panState.current.moved = true;
-    setView((v) => ({ ...v, tx: panState.current!.tx + dx, ty: panState.current!.ty + dy }));
+    const pan = panState.current;
+    if (!pan) return;
+    const dx = e.clientX - pan.x;
+    const dy = e.clientY - pan.y;
+    if (Math.abs(dx) + Math.abs(dy) > 3) pan.moved = true;
+    const { tx, ty } = pan;
+    setView((v) => ({ ...v, tx: tx + dx, ty: ty + dy }));
   };
 
   const onBackgroundPointerUp = (e: React.PointerEvent) => {

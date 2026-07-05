@@ -2,7 +2,7 @@
 .dockview-theme-procedural {
   --dv-paneview-active-outline-color: var(--accent);
   --dv-tabs-and-actions-container-font-size: 12px;
-  --dv-tabs-and-actions-container-height: 34px;
+  --dv-tabs-and-actions-container-height: 36px;
   --dv-tab-font-size: 12px;
 
   --dv-drag-over-background-color: var(--accent-soft);
@@ -17,9 +17,9 @@
   --dv-tab-border-radius: 6px 6px 0 0;
   --dv-sash-border-radius: 0px;
   --dv-dropdown-border-radius: var(--radius-sm);
-  --dv-tab-margin: 0;
-  --dv-spacing-padding: 0px;
-  --dv-tab-close-icon-size: 12px;
+  --dv-tab-margin: 0 2px;
+  --dv-spacing-padding: 4px;
+  --dv-tab-close-icon-size: 11px;
 
   --dv-sash-color: var(--border);
   --dv-active-sash-color: var(--accent);
@@ -30,7 +30,7 @@
   --dv-floating-border: 1px solid var(--border);
   --dv-floating-group-border: 1px solid var(--border);
   --dv-floating-group-dragging-opacity: 0.6;
-  --dv-floating-titlebar-height: 30px;
+  --dv-floating-titlebar-height: 32px;
   --dv-floating-titlebar-background-color: var(--bg2);
   --dv-floating-titlebar-border-bottom: 1px solid var(--border);
 
@@ -52,23 +52,73 @@
   --dv-tab-group-line-opacity: 1;
   --dv-tab-group-color: var(--accent);
 
-  --dv-group-view-background-color: var(--bg1);
-  --dv-tabs-and-actions-container-background-color: var(--bg1);
+  --dv-group-view-background-color: var(--bg0);
+  --dv-tabs-and-actions-container-background-color: #0a0a0a;
 
   --dv-activegroup-visiblepanel-tab-background-color: var(--bg1);
-  --dv-activegroup-hiddenpanel-tab-background-color: var(--bg2);
-  --dv-inactivegroup-visiblepanel-tab-background-color: var(--bg2);
-  --dv-inactivegroup-hiddenpanel-tab-background-color: var(--bg2);
+  --dv-activegroup-hiddenpanel-tab-background-color: transparent;
+  --dv-inactivegroup-visiblepanel-tab-background-color: transparent;
+  --dv-inactivegroup-hiddenpanel-tab-background-color: transparent;
 
   --dv-activegroup-visiblepanel-tab-color: var(--text);
   --dv-activegroup-hiddenpanel-tab-color: var(--text-muted);
   --dv-inactivegroup-visiblepanel-tab-color: var(--text-muted);
   --dv-inactivegroup-hiddenpanel-tab-color: var(--text-dim);
 
-  --dv-tab-divider-color: var(--border-soft);
+  --dv-tab-divider-color: transparent;
   --dv-separator-border: var(--border);
   --dv-paneview-header-border-color: var(--border);
 
   --dv-context-menu-background-color: var(--bg2);
   --dv-context-menu-color: var(--text);
+}
+
+/* Tab strip polish */
+.dockview-theme-procedural .tabs-and-actions-container {
+  border-bottom: 1px solid var(--border);
+  padding: 0 6px;
+}
+
+.dockview-theme-procedural .tab {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  border-bottom: none;
+  margin-top: 4px;
+  padding: 0 12px;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.dockview-theme-procedural .tab:hover {
+  background: var(--bg2);
+  color: var(--text);
+}
+
+.dockview-theme-procedural .groupview.active-group > .tabs-and-actions-container .tab.active-tab {
+  background: var(--bg1);
+  border-color: var(--border);
+  border-bottom-color: var(--bg1);
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 -1px 0 var(--accent) inset;
+}
+
+.dockview-theme-procedural .groupview:not(.active-group) > .tabs-and-actions-container .tab.active-tab {
+  background: var(--bg2);
+  border-color: var(--border-soft);
+  color: var(--text-muted);
+}
+
+.dockview-theme-procedural .tab .dv-tab-close {
+  opacity: 0.45;
+  transition: opacity 0.12s;
+}
+
+.dockview-theme-procedural .tab:hover .dv-tab-close,
+.dockview-theme-procedural .tab.active-tab .dv-tab-close {
+  opacity: 0.85;
+}
+
+.dockview-theme-procedural .content-container {
+  background: var(--bg0);
 }

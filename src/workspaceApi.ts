@@ -1,4 +1,6 @@
-import type { DockviewApi } from 'dockview-react';
+import type { DockviewApi, SerializedDockview } from 'dockview-react';
+
+export const LAYOUT_STORAGE_KEY = 'procedural-materials.dockview-layout.v1';
 
 export let dockviewApi: DockviewApi | null = null;
 
@@ -49,4 +51,33 @@ export function buildDefaultLayout(api: DockviewApi) {
   });
   api.getPanel('assets')?.api.setActive();
   api.getPanel('viewport')?.api.setActive();
+}
+
+export function serializeLayout(): SerializedDockview | null {
+  return dockviewApi?.toJSON() ?? null;
+}
+
+export function saveLayoutToStorage(): boolean {
+  const data = serializeLayout();
+  if (!data) return false;
+  localStorage.setItem(LAYOUT_STORAGE_KEY, JSON.stringify(data));
+  return true;
+}
+
+export function applyLayout(data: SerializedDockview): boolean {
+  if (!dockviewApi) return false;
+  try {
+    dockviewApi.fromJSON(data);
+    localStorage.setItem(LAYOUT_STORAGE_KEY, JSON.stringify(data));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function resetWorkspace(): void {
+  if (!dockviewApi) return;
+  dockviewApi.clear();
+  buildDefaultLayout(dockviewApi);
+  localStorage.removeItem(LAYOUT_STORAGE_KEY);
 }
